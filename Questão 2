@@ -1,42 +1,54 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
-void embaralhar_palavra(char *palavra) {
-    int comprimento = strlen(palavra);
-    if (comprimento <= 2) 
-    
-    // Embaralhando os caracteres dentro da palavra
-    for (int i = 1; i < comprimento - 1; i++) {
-        int j = rand() % (comprimento - 2) + 1; // Gerando um índice aleatório dentro da palavra
-        char temp = palavra[i];
-        palavra[i] = palavra[j];
-        palavra[j] = temp;
+#include <stdio.h>
+#include <stdbool.h>
+
+// Definimos um tamanho máximo para o nosso conjunto
+#define MAX_ELEMENTOS 1000
+
+// Conjunto global para armazenar os elementos já vistos
+int vistos[MAX_ELEMENTOS];
+int contador_vistos = 0;
+
+bool not_repeated(int valor) {
+    // Verifica se o valor já foi visto
+    for (int i = 0; i < contador_vistos; i++) {
+        if (vistos[i] == valor) {
+            return false;
+        }
     }
+
+    // Se o valor é inédito, o adicionamos ao conjunto
+    if (contador_vistos < MAX_ELEMENTOS) {
+        vistos[contador_vistos++] = valor;
+    }
+    return true;
 }
 
-int main() {
-    srand(time(NULL));
-    
-    char frase[100];
-    printf("Digite uma frase: ");
-    fgets(frase, sizeof(frase), stdin);
-    
-    char *palavra;
-    char *resto = frase;
-    
-    while ((palavra = strtok_r(resto, " \n", &resto))) {
-        if (rand() % 2 == 0) { 
-            embaralhar_palavra(palavra);
+// Função filtro para aplicar o filtro usando not_repeated
+void filtro(int* array, int* tamanho) {
+    int novo_tamanho = 0;
+    for (int i = 0; i < *tamanho; i++) {
+        if (not_repeated(array[i])) {
+            array[novo_tamanho++] = array[i];
         }
-        printf("%s ", palavra);
     }
-    
+    *tamanho = novo_tamanho;
+}
+
+// Função principal para testar
+int main() {
+    int array[] = {1, 2, 3, 2, 4, 5, 1, 6, 7, 5};
+    int tamanho = 10;
+
+    filtro(array, &tamanho);
+
+    printf("Array filtrado: ");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", array[i]);
+    }
     printf("\n");
-    
+
     return 0;
 }
-
-
+```
