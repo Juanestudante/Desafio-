@@ -1,53 +1,28 @@
+include <stdio.h>
+#include <string.h>
 
+// Definição da estrutura para representar as informações financeiras
+typedef struct {
+    char data[11];   // Formato: DD/MM/AAAA
+    float valor;
+    char tipo[20];
+    char nome[20];
+} InformacaoFinanceira;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-// Definimos um tamanho máximo para o nosso conjunto
-#define MAX_ELEMENTOS 1000
-
-// Conjunto global para armazenar os elementos já vistos
-int vistos[MAX_ELEMENTOS];
-int contador_vistos = 0;
-
-bool not_repeated(int valor) {
-    // Verifica se o valor já foi visto
-    for (int i = 0; i < contador_vistos; i++) {
-        if (vistos[i] == valor) {
-            return false;
-        }
-    }
-
-    // Se o valor é inédito, o adicionamos ao conjunto
-    if (contador_vistos < MAX_ELEMENTOS) {
-        vistos[contador_vistos++] = valor;
-    }
-    return true;
-}
-
-// Função filtro para aplicar o filtro usando not_repeated
-void filtro(int* array, int* tamanho) {
-    int novo_tamanho = 0;
-    for (int i = 0; i < *tamanho; i++) {
-        if (not_repeated(array[i])) {
-            array[novo_tamanho++] = array[i];
-        }
-    }
-    *tamanho = novo_tamanho;
-}
-
-// Função principal para testar
 int main() {
-    int array[] = {1, 2, 3, 2, 4, 5, 1, 6, 7, 5};
-    int tamanho = 10;
+    // Criando e inicializando uma instância da estrutura
+    InformacaoFinanceira info1;
+    
+    strcpy(info1.data, "22/02/2020");
+    info1.valor = 913.00;
+    strcpy(info1.tipo, "Renda Fixa");
+    strcpy(info1.nome, "CDB maj");
 
-    filtro(array, &tamanho);
-
-    printf("Array filtrado: ");
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
+    // Exibindo os dados da estrutura
+    printf("Data: 25/03/2021, info2.data);
+    printf("Valor =535.20;
+    printf("Tipo: Tesouro, info2.tipo);
+    printf("Nome: selic, info2.nome);
 
     return 0;
 }
